@@ -1,50 +1,64 @@
 <!DOCTYPE html> 
-<html ng-app="myApp"> 
+<html ng-app="calculatorApp"> 
 <head> 
-<title>Full Name Input with Default Values</title> 
 <script 
-src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script> 
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> 
 <style> 
 body { 
 font-family: sans-serif; 
 } 
 .container { 
-margin: 20px; 
+margin: 110px; 
 padding: 20px; 
-border: 1px solid #ccc; 
+border: 20px; 
 } 
-label { 
-display: block; 
-margin-bottom: 5px; 
-} 
-input { 
-width: 100%; 
-padding: 5px; 
-border: 1px solid #ccc; 
-} 
-.fullName { 
-font-weight: bold; 
+.operator-button { 
+padding: 5px 10px; 
+border: 3px solid green; 
+background-color: skyblue; 
+cursor: pointer; 
 } 
 </style> 
 </head> 
 <body> 
-<div class="container" ng-controller="myCtrl"> 
-<h2>Full Name Input with Default Values</h2> 
-<label for="firstName">First Name:</label> 
-<input type="text" ng-model="firstName" id="firstName" placeholder="Enter your 
-first name" value="John"> 
-<label for="lastName">Last Name:</label> 
-<input type="text" ng-model="lastName" id="lastName" placeholder="Enter your last 
-name" value="Doe"> 
-<br> 
-<span class="fullName">Full Name: {{firstName + ' ' + lastName}}</span> 
+<div class="container" ng-controller="calculatorController"> 
+<h2>Simple Calculator</h2> 
+<input type="number" ng-model="num1" placeholder="Enter number 1"> 
+<input type="number" ng-model="num2" placeholder="Enter number 2"> 
+<select class="operator-button" ng-model="operator"> 
+<option value="+">Addition</option> 
+<option value="-">Subtraction</option> 
+<option value="*">Multiplication</option> 
+<option value="/">Division</option> 
+</select> 
+<button class="operator-button" ng-click="calculate()">Calculate</button> 
+<span class="result">Result: {{ result }}</span> 
 </div> 
+ 
 <script> 
-var app = angular.module('myApp', []); 
-app.controller('myCtrl', function($scope) { 
-$scope.firstName = "John"; 
-$scope.lastName = "Doe"; 
+var app = angular.module('calculatorApp', []); 
+app.controller('calculatorController', function($scope) { 
+$scope.num1 = 0; 
+$scope.num2 = 0; 
+$scope.operator = '+'; 
+$scope.result = 0; 
+ 
+$scope.calculate = function() { 
+if ($scope.operator === '+') { 
+$scope.result = $scope.num1 + $scope.num2; 
+} else if ($scope.operator === '-') { 
+$scope.result = $scope.num1 - $scope.num2; 
+} else if ($scope.operator === '*') { 
+$scope.result = $scope.num1 * $scope.num2; 
+} else if ($scope.operator === '/') { 
+if ($scope.num2 === 0) { 
+$scope.result = 'Cannot divide by zero'; 
+} else { 
+$scope.result = $scope.num1 / $scope.num2; 
+} 
+} 
+}; 
 }); 
-</script> 
+</script>
 </body> 
-</html> 
+</html>
