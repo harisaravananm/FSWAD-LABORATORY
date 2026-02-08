@@ -1,0 +1,161 @@
+Index.html 
+<!doctype html> 
+<html lang="en"> 
+<head> 
+<meta charset="utf-8"> 
+<title>WeatherAppAngular17</title> 
+<base href="/"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<link rel="icon" type="image/x-icon" href="favicon.ico"> 
+</head> 
+<body> 
+<app-root></app-root> 
+</body> 
+</html> 
+Main.ts 
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'; 
+import { AppModule } from './app/app.module'; 
+platformBrowserDynamic().bootstrapModule(AppModule) 
+.catch(err => console.error(err));
+App.component.ts 
+import { Component } from '@angular/core'; 
+@Component({ 
+selector: 'app-root', 
+templateUrl: './app.component.html', 
+styleUrls: ['./app.component.css'] 
+}) 
+export class AppComponent { 
+title = 'WeatherAppAngular17'; 
+} 
+App.module.ts 
+import { NgModule } from '@angular/core'; 
+import { BrowserModule } from '@angular/platform-browser'; 
+import { AppComponent } from './app.component'; 
+import { WeatherComponent } from './weather/weather.component'; 
+import { HttpClientModule } from '@angular/common/http'; 
+@NgModule({ 
+declarations: [ 
+AppComponent, 
+WeatherComponent 
+], 
+imports: [ 
+BrowserModule, 
+HttpClientModule 
+], 
+providers: [], 
+bootstrap: [AppComponent] 
+}) 
+export class AppModule { } 
+app.weather.service.ts 
+import { HttpClient } from '@angular/common/http'; 
+import { Injectable } from '@angular/core'; 
+@Injectable({ 
+providedIn: 'root' 
+}) 
+export class WeatherService { 
+constructor(private http: HttpClient) { } 
+getweather(city: string, units: string) { 
+return this.http.get('https://api.openweathermap.org/data/2.5/weather?q=' + city + 
+'&appid=' + '{your_Open_API_Key}' + units); 
+} 
+} 
+ 
+weather.component.css 
+.mycontainer { 
+display: flex; 
+flalign-items: center; 
+} 
+p { 
+margin: 5px; 
+} 
+.myRadioButtons { 
+display: flex; 
+justify-content: space-around; 
+} 
+weather.component.html 
+<div class="mycontainer"> 
+<div class="card text-white bg-primary m-5" style="max-width: 18rem;"> 
+<div class="card-header text-center"> 
+<h2>{{city}}</h2> 
+<img src="{{iconURL}}" alt="weather image"> 
+</div> 
+<div class="card-body"> 
+<p class="card-text">Summary: {{summary}}</p> 
+<!-- Using build-in angular pipe to round up the decimal number --> 
+<!-- https://angular.io/api/common/DecimalPipe --> 
+<p class="card-text">Temperature: {{temperature | number: '1.0-0'}} 
+°{{units=='imperial' ? 'F' : 'C'}}</p> 
+<p class="card-text">Feels like: {{feelsLikeTemp | number: '1.0-0'}} 
+°{{units=='imperial' ? 'F' : 'C'}}</p> 
+<p class="card-text">Pressure: {{pressure}} hPa</p> 
+<p class="card-text">Humidity: {{humidity}} %</p> 
+</div> 
+<div class="card-footer bg-transparent border-success"> 
+<form class="myRadioButtons"> 
+<label class="radio-inline"> 
+<input type="radio" (change)="onRadioButtonChange()" 
+name="unitsRadioButtons" 
+[checked]="units=='imperial' ? true : false">°F 
+</label> 
+<label class="radio-inline"> 
+<input type="radio" (change)="onRadioButtonChange()" 
+name="unitsRadioButtons">°C 
+</label> 
+ 
+</form> 
+</div> 
+</div> 
+</div> 
+weather.component.ts 
+import { Component, OnInit } from '@angular/core'; 
+import { WeatherService } from '../weather.service'; 
+@Component({ 
+selector: 'app-weather', 
+templateUrl: './weather.component.html', 
+styleUrls: ['./weather.component.css'] 
+}) 
+export class WeatherComponent implements OnInit { 
+ 
+myWeather: any; 
+temperature: number = 0; 
+feelsLikeTemp: number = 0; 
+humidity: number = 0; 
+pressure: number = 0; 
+summary: string = ''; 
+iconURL: string = ''; 
+city: string = 'Minneapolis'; 
+//units: string = 'metric' 
+units: string = 'imperial' 
+constructor(private weatherService: WeatherService) { } 
+ngOnInit(): void { 
+this.getWeather(); 
+} 
+getWeather() { 
+this.weatherService.getweather(this.city, this.units).subscribe({ 
+ 
+next: (res) => { 
+this.myWeather = res; 
+this.temperature = this.myWeather.main.temp; 
+this.feelsLikeTemp = this.myWeather.main.feels_like; 
+this.humidity = this.myWeather.main.humidity; 
+this.pressure = this.myWeather.main.pressure; 
+this.summary = this.myWeather.weather[0].main; 
+this.iconURL = 'https://openweathermap.org/img/wn/' + 
+this.myWeather.weather[0].icon + '@2x.png'; 
+}, 
+ 
+error: (error) => console.log(error.message), 
+ 
+complete: () => console.info('API call completed') 
+}) 
+} 
+ 
+onRadioButtonChange() { 
+if (this.units == 'imperial') { 
+this.units = 'metric'; 
+} else { 
+this.units = 'imperial';
+} 
+this.getWeather(); 
+} 
+} 
