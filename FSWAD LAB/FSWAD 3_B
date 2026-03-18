@@ -97,11 +97,7 @@ $scope.cancelEdit = function() {
 $scope.editingTask = null; 
 }; 
  
-$scope.deleteTask = function(task) { 
-var index = $scope.tasks.indexOf(task); 
-if (index >= 0) { 
-$scope.tasks.splice(index, 1); 
-} 
+
 }; 
 }); 
 </script> 
