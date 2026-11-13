@@ -1,3 +1,7 @@
+<!-- tech-version-badges -->
+![HTML 5](https://img.shields.io/badge/HTML-5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS 3](https://img.shields.io/badge/CSS-3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript ES6](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white) ![React 18%2B](https://img.shields.io/badge/React-18%2B-61DAFB?style=for-the-badge&logo=react&logoColor=white) ![Node.js 18%2B](https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+<!-- /tech-version-badges -->
+
 ## Full Stack Web Application Development Laboratory
 
 A comprehensive hands-on lab where students build complete web applications using VS Code with productivity-enhancing extensions. The course progresses from basic JavaScript to full MEAN stack development.
@@ -79,13 +83,13 @@ A comprehensive hands-on lab where students build complete web applications usin
 4. **Project Organization:**
 ```
 fswad-lab/
-├── exp-1a-js-arithmetic/
-├── exp-2a-angular-basics/
-├── exp-6-express-login/
-├── exp-10-mean-task-manager/
-│   ├── frontend/
-│   ├── backend/
-│   └── README.md
+â”œâ”€â”€ exp-1a-js-arithmetic/
+â”œâ”€â”€ exp-2a-angular-basics/
+â”œâ”€â”€ exp-6-express-login/
+â”œâ”€â”€ exp-10-mean-task-manager/
+â”‚   â”œâ”€â”€ frontend/
+â”‚   â”œâ”€â”€ backend/
+â”‚   â””â”€â”€ README.md
 ```
 
 **Learning Outcomes**
