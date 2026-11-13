@@ -83,13 +83,13 @@ A comprehensive hands-on lab where students build complete web applications usin
 4. **Project Organization:**
 ```
 fswad-lab/
-â”œâ”€â”€ exp-1a-js-arithmetic/
-â”œâ”€â”€ exp-2a-angular-basics/
-â”œâ”€â”€ exp-6-express-login/
-â”œâ”€â”€ exp-10-mean-task-manager/
-â”‚   â”œâ”€â”€ frontend/
-â”‚   â”œâ”€â”€ backend/
-â”‚   â””â”€â”€ README.md
+|-- exp-1a-js-arithmetic/
+|-- exp-2a-angular-basics/
+|-- exp-6-express-login/
+|-- exp-10-mean-task-manager/
+|   |-- frontend/
+|   |-- backend/
+|   `-- README.md
 ```
 
 **Learning Outcomes**
